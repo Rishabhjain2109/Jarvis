@@ -66,6 +66,6 @@ export const router = async (state) => {
         ...state,
         agent:response.content
               .trim()
-              .tolowerCase()
+              .toLowerCase()
     }
 }
