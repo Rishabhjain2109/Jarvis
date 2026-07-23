@@ -33,7 +33,7 @@ export const updateConversation=async (req,res)=>{
         const conversations=await Conversation.findByIdAndUpdate(id,{
             title
         })
-      return res.status(200).json(converstaion)
+      return res.status(200).json(conversation)
     }catch(error){
       return res.status(500).json({message:`update conversation error ${error}`})
     }
