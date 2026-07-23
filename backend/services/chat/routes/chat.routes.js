@@ -5,8 +5,8 @@ const router=express.Router()
 
 router.get("/create-conversation",createConversation)
 router.get("/get-conversation",getConversations)
-router.post("/udpate-conversation",updateConversation)
-router.post("save-message",saveMessage)
-router.get("get-message/:conversationId",getMessages)
+router.post("/update-conversation",updateConversation)
+router.post("/save-message",saveMessage)
+router.get("/get-message/:conversationId",getMessages)
 
 export default router

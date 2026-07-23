@@ -1,6 +1,6 @@
-import { chatAgent } from "../agents/chat.agent"
-import { serachAgent } from "../agents/search.agent"
-import { getModel } from "../config/llmModels"
+import { chatAgent } from "../agents/chat.agent.js"
+import { serachAgent } from "../agents/search.agent.js"
+import { getModel } from "../config/llmModels.js"
 
 export const router = async (state) => {
     const llm =await getModel("router")

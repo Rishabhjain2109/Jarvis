@@ -7,7 +7,7 @@ export const createConversation=async (req,res)=>{
       const conversation=await Conversation.create({
         userId:userId
       })
-      return res.status(200).json(converstaion)
+      return res.status(200).json(conversation)
     }catch(error){
       return res.status(500).json({message:`create conversation error ${error}`})
     }
@@ -20,7 +20,7 @@ export const getConversations=async (req,res)=>{
       const conversations=await Conversation.find({
         userId:userId
       }).sort({updatedAt:-1})
-      return res.status(200).json(converstaion)
+      return res.status(200).json(conversations)
     }catch(error){
       return res.status(500).json({message:`get conversation error ${error}`})
     }

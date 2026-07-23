@@ -1,5 +1,5 @@
 import { Annotation } from "@langchain/langgraph";
-import Conversation from "../../chat/models/conversation.model";
+import Conversation from "../../chat/models/conversation.model.js";
 
 export const agentState=Annotation.Root({
     prompt:Annotation(),
