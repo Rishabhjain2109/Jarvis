@@ -30,7 +30,7 @@ export const getConversations=async (req,res)=>{
 export const updateConversation=async (req,res)=>{
     try{
         const {id,title}=req.body
-        const conversations=await Conversation.findByIdAndUpdate(id,{
+        const conversation=await Conversation.findByIdAndUpdate(id,{
             title
         })
       return res.status(200).json(conversation)
@@ -41,11 +41,12 @@ export const updateConversation=async (req,res)=>{
 
 export const saveMessage=async(req,res)=>{
     try{
-       const {conversationId,role,content}=req.body
+       const {conversationId,role,content,images}=req.body
        const message=await Message.create({
             conversationId,
             content,
-            role
+            role,
+            images
        })
        return res.status(200).json(message)
     }catch(error){
