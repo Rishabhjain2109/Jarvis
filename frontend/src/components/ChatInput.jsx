@@ -1,4 +1,4 @@
-import { Code2, FileText, Globe, ImageIcon, MessageSquare, Mic, Paperclip, Send, Zap } from 'lucide-react'
+import { Code2, FileText, Globe, ImageIcon, MessageSquare, Mic, Paperclip, Presentation, Send, Zap } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
 import sendMessage from '../features/sendMessage.js'
@@ -70,8 +70,13 @@ function ChatInput() {
     },
     {
       id:"ppt",
+      icon:Presentation,
+      label:"PPT"
+    },
+    {
+      id:"vision",
       icon:ImageIcon,
-      label:"Image"
+      label:"Vision"
     },
     {
       id:"search",
