@@ -11,7 +11,7 @@ function Artifact() {
   const[activeFile,setactiveFile]=useState(0)
   const [copied,setCopied]=useState(false)
   
-if(artifacts.legnth==0)return;
+if(artifacts.length==0)return;
 
 
 

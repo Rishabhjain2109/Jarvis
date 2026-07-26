@@ -8,12 +8,15 @@ import { addConversation, setConversations, setSelectConversation } from '../red
 import { createConversation } from '../features/createConversation'
 import { setUserdata } from '../redux/userSlice'
 import logOut from '../features/logOut'
+import BillingDrawer from './BillingDrawer'
+
 function SideBar() {
     const [collapsed, setCollapsed] = useState(false)
     const dispatch = useDispatch()
     const [imageError,setImageError]=useState(false)
     const { conversations, selectedConversation } = useSelector(state => state.conversation)
-    const { userData } = useSelector(state => state.user)    
+    const { userData } = useSelector(state => state.user)
+    const [showBilling,setShowBilling]=useState(false);
     useEffect(() => {
         const getConv = async () => {
             const data = await getConversations()
@@ -155,7 +158,9 @@ function SideBar() {
                         <p className='text-[11px] text-slate-600 mt-px'>{"Free Plan"}</p>
                       </div>
                       <div className='flex gap-1'>
-                        <button className='flex items-center justify-center w-7 h-7 rounded-[7px] border-none bg-transparent text-yellow-600 cursor-pointer hover:bg-white/[0.08] hover:text-slate-400 transition-all duration-150'>
+                        <button
+                         onClick={()=>setShowBilling(true)}
+                         className='flex items-center justify-center w-7 h-7 rounded-[7px] border-none bg-transparent text-yellow-600 cursor-pointer hover:bg-white/[0.08] hover:text-slate-400 transition-all duration-150'>
                            <Coins size={16}/>
                         </button>
                         <button className='flex items-center justify-center w-7 h-7 rounded-[7px] border-none bg-transparent text-slate-600 cursor-pointer hover:bg-white/[0.08] hover:text-slate-400 transition-all duration-150'
@@ -173,6 +178,10 @@ function SideBar() {
                       </button>}
                 </div>
             </div>
+            <BillingDrawer
+              open={showBilling}
+              onClose={()=>setShowBilling(false)}
+            />
         </div>
     )
     
