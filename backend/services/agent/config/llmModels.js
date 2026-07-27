@@ -25,6 +25,8 @@ export const getModel=async (agent)=>{
             return gemini;
         case "coding":
             return deepseek;
+        case "imageAnalyzer":
+            return gemini;
         default:
             return gemini;
     }

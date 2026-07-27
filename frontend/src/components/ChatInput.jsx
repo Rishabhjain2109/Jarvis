@@ -7,6 +7,7 @@ import { addMessage, setArtifacts, setMessages } from '../redux/messageSlice.js'
 import { createConversation } from '../features/createConversation.js'
 import { addConversation, setConvTitle, setSelectConversation } from '../redux/conversationSlice.js'
 import { updateConversation } from '../features/updateConversation.js'
+import { useRef } from 'react'
 
 
 function ChatInput() {
@@ -14,6 +15,8 @@ function ChatInput() {
   const [selectedAgent,setSelectedAgent]=useState("Auto")
   const {selectedConversation}=useSelector(state=>state.conversation);
   const {messages}=useSelector(state=>state.message)
+  const [selectedFile,setSelectedFile]=useState(null)
+  const fileRef=useRef(null)
   const dispatch=useDispatch()
 
 
@@ -36,12 +39,18 @@ function ChatInput() {
     const payload={
        prompt:value.trim(),conversationId:conversation?._id,agent:selectedAgent.toLowerCase()
     }
-    
-    
+    console.log(selectedFile)
+    const formData=new FormData()
+    formData.append("prompt",value.trim())
+    formData.append("conversationId",conversation?._id)
+    formData.append("agent",selectedAgent.toLowerCase())
+    formData.append("file",selectedFile)
+
+
 
     dispatch(addMessage({role:"user",content:value.trim()}))
     setValue("")
-    const data=await sendMessage(payload)
+    const data=await sendMessage(formData)
     dispatch(setArtifacts(data?.artifacts || []))
     dispatch(addMessage({role:"assistant",content:data?.answer,images:data?.images}))
     console.log(data)
@@ -115,7 +124,14 @@ function ChatInput() {
     />
     <div className='flex items-center justify-between'>
       <div className='flex items-center gap-1'>
-         <button className="flex items-center justify-center w-8 h-8 rounded-lg text-slate-600 hover:text-slate-400 hover:bg-white/[0.05] border border-transparent hover:border-white/[0.06] transition-all duration-150 bg-transparent cursor-pointer">
+
+         <input type="file" accept='.pdf,image/*' hidden ref={fileRef} onChange={(e)=>{
+          const file=e.target.files[0]
+          if(file){
+            setSelectedFile(file)
+          }
+         }}/>
+         <button className='flex items-center justify-center w-8 h-8 rounded-lg text-slate-600 hover:text-slate-400 hover:bg-white/[0.05] border border-transparent hover:border-white/[0.06] transition-all duration-150 bg-transparent cursor-pointer' onClick={()=>fileRef.current.click()}>
           <Paperclip size={16}/>
          </button>
          <button className="flex items-center justify-center w-8 h-8 rounded-lg text-slate-600 hover:text-slate-400 hover:bg-white/[0.05] border border-transparent hover:border-white/[0.06] transition-all duration-150 bg-transparent cursor-pointer">
