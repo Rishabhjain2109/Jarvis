@@ -1,7 +1,7 @@
 import { addMessage } from "../config/memory.js";
 import { graph } from "../graph/graph.js"
 import axios from "axios";
-export const agent=async (req,res)=>{
+export const agent=async (req,res,next)=>{
     try{
         const {prompt,conversationId,agent}=req.body
         const file=req.file
@@ -24,13 +24,6 @@ export const agent=async (req,res)=>{
             artifacts:result?.artifacts
         })
     }catch(error){
-        console.error(error);
-
-    if (error.response) {
-        console.error("Status:", error.response.status);
-        console.error("Data:", error.response.data);
-    }
-
-        return res.status(500).json({message:`agent error ${error}`})
+       next(error)
     }
 }
